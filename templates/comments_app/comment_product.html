@@ -1,0 +1,29 @@
+
+
+{% if user.is_authenticated %}
+    <div class="product_review_form">
+        <form action="{% url 'comments:create_comment_product' product.slug %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12">
+                    <label for="review_comment">نقد و بررسی شما </label>
+                    {{ form.comment_text }}
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label for="author-comment">نام</label>
+                    {{ form.fullname }}
+
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label for="email-comment">ایمیل </label>
+                    {{ form.email }}
+                    
+                </div>
+            </div>
+            <button type="submit">ثبت</button>
+        </form>
+    </div>
+{% else %}
+    <p>برای ثبت دیدگاه باید <a href="{% url 'accounts:login' %}?next={{product.get_absolute_url}}" class='text-danger' style="font-size:1.3rem;">ورود</a> کنید.</p>
+{% endif %}
+    

@@ -1,0 +1,112 @@
+{% load render_partial %}
+{% load jalali_tags %}
+
+<div class="tab-pane fade" id="reviews" role="tabpanel">
+    <div class="reviews_wrapper">
+        <h2>1 نقد و بررسی برای این محصول</h2>
+        
+        {% if product.product_comments.all %}
+            
+            {% for comment in product.product_comments.all %}               
+                {% if comment.is_active %}                    
+                    {% if comment.comment_parent == none %}
+                        <div class="reviews_comment_box">
+                            <div class="comment_thmb">
+                                <img src="{{ media_url }}images/blog/comment2.jpg" alt="">
+                            </div>
+                            <div class="comment_text">
+                                <div class="reviews_meta">
+                                    <p><strong>
+                                    
+                                    {% if comment.user_commenter.name %}
+                                        {{ comment.user_commenter.name }}
+                                        {% else %}
+                                        {{ comment.fullname }}
+                                    {% endif %}
+                                            
+                                    
+                                    </strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ comment.register_date | to_jalali:'%Y/%m/%d - %H:%M' }} </p>
+                                    
+                                
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p> {{ comment.comment_text }} </p>
+                                    
+                                    
+                                    {% if user.is_authenticated and user != comment.user_commenter %}
+                                        <button type="button" id="btn-child{{comment.id}}" class="btn btn-outline-info" data-toggle="collapse" data-target="#collapse-content{{comment.id}}" aria-controls="collapse-content{{comment.id}}"
+                                        aria-expanded="false" onclick="create_comment_child({{product.id}},{{comment.id}})">پاسخ</button>  
+                                    {% endif %}
+                                        
+                                </div>      
+                                                          
+                                
+                                {% if user.is_authenticated %}
+                                <div id="like-box{{comment.id}}">
+                                    {% render_partial 'comments:like_comment_partial' id=comment.id %}
+                                </div>
+                                    
+                                {% endif %}
+                                    
+                            
+                                    <div class="collapse" id="collapse-content{{comment.id}}">
+                                        
+                                            <div id="comment-child-section{{comment.id}}">
+
+                                            </div>
+                                        
+                                    </div>
+                                                        
+                                    
+                                    {% if comment.commnets_child.all %}                                                                                    
+                                        {% for comment_child in comment.commnets_child.all %}
+                                            
+                                            {% if comment_child.is_active %}
+                                                <div class="comment_text_child w-75">
+                                                    <div class="reviews_meta">
+                                                        <p><strong>
+                                                        {% if comment_child.user_commenter.name %}
+                                                            {{ comment_child.user_commenter.name }}
+                                                            {% else %}
+                                                            {{ comment_child.fullname }}
+                                                        {% endif %}    
+                                                        
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{comment_child.register_date  | to_jalali:'%H:%M - %Y/%m/%d'}}</p>
+                                                        
+                                                    </div>
+                                                    <p>{{ comment_child.comment_text }}</p>
+
+                                                    
+                                                    {% if user.is_authenticated %}
+                                                        <div id="like-box{{comment_child.id}}">
+                                                            {% render_partial 'comments:like_comment_partial' id=comment_child.id %}
+                                                        </div>
+                                                    {% endif %}
+                                                        
+                                                    
+                                                    
+
+                                                </div>
+                                            {% endif %}
+                                                
+                                        {% endfor %}                                                                                           
+                                    {% endif %}
+                                        
+                            </div>
+                        </div>
+                    {% endif %}                        
+                {% endif %}
+                    
+            {% endfor %}
+        {% else %}
+            <h4>دیدگاهی برای این محصول درج نشده است.</h4>        
+        {% endif %}
+            
+        <div class="comment_title">
+            <h2>یک نقد و بررسی بنویسید </h2>
+            {% comment %} <p>ایمیل شما منتشر نخواهد شد. فیلد های الزامی مشخص شده اند</p> {% endcomment %}
+        </div>
+
+        {% render_partial 'comments:create_comment_product' slug=product.slug %}
+    </div>
+</div>

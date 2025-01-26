@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        فروشگاه آنتومی
+        {% block title %}
+            
+        {% endblock title %}
+            
+    </title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ media_url }}images/favicon.ico">
+
+	<meta name="theme-color" content="#c40316">
+
+    <!-- CSS ========================= -->
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Custom Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom_style.css' %}">
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+
+{% include 'partials/header.html' %}
+{% include 'partials/messages.html' %}
+
+{% block content %}
+    
+{% endblock content %}
+    
+{% include 'partials/footer.html' %}
+
+
+
+    <!-- JS ============================================ -->
+
+    <!-- jquery 3.7.1 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Plugins JS -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'js/countdown.min.js' %}"></script>
+
+    <!-- Scripts JS -->
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+</body>
+
+</html>

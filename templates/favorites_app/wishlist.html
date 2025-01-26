@@ -1,0 +1,61 @@
+
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+
+{% block title %}
+| علاقه مندی
+{% endblock title %}
+    
+
+{% block content %}
+    
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li><a href="{% url 'accounts:userpanel' %}">پنل کاربری</a></li>
+                            <li>لیست علاقه‌مندی‌ها</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!--wishlist area start -->
+    <div class="wishlist_page_bg">
+        <div class="container">
+            <div class="wishlist_area">
+                <div class="wishlist_inner">
+                    {% render_partial 'favorites:show_wishlist'  %}
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wishlist_share">
+                            <h4>اشتراک گذاری در:</h4>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--wishlist area end -->
+
+{% endblock content %}
+    

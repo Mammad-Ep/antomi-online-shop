@@ -1,0 +1,12 @@
+
+<div class="widget_list widget_filter">
+    <h3>فیلتر با قیمت</h3>
+    <form action="">
+        <div id="slider-range"></div>
+        <input type="text" id="amount">
+        <button type="submit">فیلتر قیمت</button>
+        <input type="hidden" id="price-min" name="price_min" data-min="{{price_aggregate.min_price}}" value="{{price_min}}">
+        <input type="hidden" id="price-max" name="price_max" data-max="{{price_aggregate.max_price}}" value="{{price_max}}">
+        <p>{{price_aggregate.min_price}} - {{price_aggregate.max_price}}</p>
+    </form>
+</div> 

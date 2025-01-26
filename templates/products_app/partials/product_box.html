@@ -1,0 +1,285 @@
+
+{% load humanizelib %}
+
+{% if type == 1 %}
+    <article class="single_product">
+        <figure>
+
+            <div class="product_thumb">
+                <a class="primary_img" href="{{ product.get_absolute_url }}"><img
+                        src="{{ media_url }}{{product.image_name }}" alt=""></a>
+                <a class="secondary_img" href="{{ product.get_absolute_url }}"><img
+                        src="{{ media_url }}{{product.image_name }}" alt=""></a>
+                    
+                    {% if label %}
+                        <div class="label_product">
+                            <span class="label_sale">{{ label }}</span>
+                        </div>
+                    {% endif %}
+                        
+                <div class="action_links">
+                    <ul>
+                        
+                        
+                        {% if user.is_authenticated %}
+                            {% if product.check_favorite_product %}
+                                <li class="wishlist">
+                                    <a title="افزودن به علاقه‌مندی‌ها"><i class="fa-solid fa-heart" id="favorite_{{product.id}}" style="color: #ff0000;"></i></a></li>
+                                {% else %}
+                                    <li class="wishlist" onclick="add_favorite_product({{product.id}})">
+                                        <a title="افزودن به علاقه‌مندی‌ها"><i class="fa-regular fa-heart" id="favorite_{{product.id}}"></i></a></li>
+                            {% endif %}
+                            
+                        {% else %}
+
+                            <li class="wishlist"> <a title="افزودن به علاقه‌مندی‌ها" onclick="alert_for_favorite()"><i class="fa-regular fa-heart"></i></a></li>
+                        {% endif %}
+                            
+                            
+                        
+                        <li class="compare"><a title="افزودن به مقایسه" onclick="add_compare_product({{product.id}},{{product.get_main_group}})"><i
+                        class="ion-ios-settings-strong"></i></a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="product_content">
+                <div class="product_content_inner">
+                    <h4 class="product_name"><a href="{{ product.get_absolute_url }}"> {{product.product_name }} </a></h4>
+                    <div class="price_box">
+                        {% if product.number_product_warehouse > 0 %}              
+                       
+                            {% if product.product_price > product.price_by_discount %}
+                                <span class="old_price">{{ product.product_price | intcomma }} تومان</span>
+                                <span class="current_price">{{ product.price_by_discount | intcomma }} تومان</span>
+                            {% else %}
+                                <span class="current_price">{{ product.product_price | intcomma }} تومان</span>
+                        {% endif %}
+                            
+                            
+                        {% else %}
+                            <span class="current_price">ناموجود</span>    
+                        {% endif %}
+                    </div>
+                </div>
+
+                
+                <div class="add_to_cart">
+                    
+                    {% if product.number_product_warehouse > 0 %}
+                        <button type="button" title="افزودن به سبد" onclick="add_shop_cart({{product.id}},1)">افزودن به سبد</button>
+                    {% else %}
+                        <button class="btn btn-warning" type="button">موجود شد باخبرم کن</button>
+                    {% endif %}
+                        
+                    
+                </div>
+
+            </div>
+        </figure>
+    </article>
+{% endif %}
+    
+
+{% if type == 2 %}
+    <div class="col-lg-3 col-md-4 col-12 ">
+        <article class="single_product">
+            <figure>
+                <div class="product_thumb">
+                    <a class="primary_img" href="{{ product.get_absolute_url }}"><img
+                            src="{{ media_url }}{{product.image_name }}" alt=""></a>
+                    <a class="secondary_img" href="{{ product.get_absolute_url }}"><img
+                            src="{{ media_url }}{{product.image_name }}" alt=""></a>
+
+                        {% if label %}
+                            <div class="label_product">
+                                <span class="label_sale">{{ label }}</span>
+                            </div>
+                        {% endif %}
+
+                    <div class="action_links">
+                        <ul>
+                        {% if user.is_authenticated %}
+                            {% if product.check_favorite_product %}
+                                <li class="wishlist">
+                                    <a title="افزودن به علاقه‌مندی‌ها"><i class="fa-solid fa-heart" id="favorite_{{product.id}}" style="color: #ff0000;"></i></a></li>
+                                {% else %}
+                                    <li class="wishlist" onclick="add_favorite_product({{product.id}})">
+                                        <a title="افزودن به علاقه‌مندی‌ها"><i class="fa-regular fa-heart" id="favorite_{{product.id}}"></i></a></li>
+                            {% endif %}
+                            
+                        {% else %}
+
+                            <li class="wishlist"> <a title="افزودن به علاقه‌مندی‌ها" onclick="alert_for_favorite()"><i class="fa-regular fa-heart"></i></a></li>
+                        {% endif %}
+
+                        <li class="compare"><a title="افزودن به مقایسه" onclick="add_compare_product({{product.id}},{{product.get_main_group}})"><i
+                            class="ion-ios-settings-strong"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product_content grid_content">
+                    <div class="product_content_inner">
+                        <h4 class="product_name"><a href="{{ product.get_absolute_url }}">{{product.product_name }}</a></h4>
+                        <div class="product_rating">
+                            <ul class="d-flex align-items-center justify-content-center">
+                                <span> {{product.avg_score_product}} </span>&nbsp;&nbsp;<i class="fa-solid fa-star fa-lg" style="color: #fdc400;"></i> 
+                            </ul>
+                        </div>
+                        <div class="price_box">
+                            {% if product.number_product_warehouse > 0 %}              
+                           
+                                {% if product.product_price > product.price_by_discount %}
+                                    <span class="old_price">{{ product.product_price | intcomma }} تومان</span>
+                                    <span class="current_price">{{ product.price_by_discount | intcomma }} تومان</span>
+                                {% else %}
+                                    <span class="current_price">{{ product.product_price | intcomma }} تومان</span>
+                            {% endif %}
+                                
+                                
+                            {% else %}
+                                <span class="current_price">ناموجود</span>    
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="add_to_cart">
+                        {% if product.number_product_warehouse > 0 %}
+                            <button type="button" title="افزودن به سبد" onclick="add_shop_cart({{product.id}},1)">افزودن به سبد</button>
+                        {% else %}
+                            <button class="btn btn-warning" type="button">موجود شد باخبرم کن</button>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="product_content list_content">
+                    <h4 class="product_name"><a href="product-details.html">{{product.product_name }}</a></h4>
+                    <div class="product_rating">
+                        <ul class="d-flex align-items-center justify-content-center">
+                            <span> {{product.avg_score_product}} </span>&nbsp;&nbsp;<i class="fa-solid fa-star fa-lg" style="color: #fdc400;"></i> 
+                        </ul>
+                    </div>
+                    <div class="price_box">
+                        {% if product.number_product_warehouse > 0 %}              
+                       
+                            {% if product.product_price > product.price_by_discount %}
+                                <span class="old_price">{{ product.product_price | intcomma }} تومان</span>
+                                <span class="current_price">{{ product.price_by_discount | intcomma }} تومان</span>
+                            {% else %}
+                                <span class="current_price">{{ product.product_price | intcomma }} تومان</span>
+                        {% endif %}
+                            
+                            
+                        {% else %}
+                            <span class="current_price">ناموجود</span>    
+                        {% endif %}
+                    </div>
+                    <div class="product_desc">
+                        <p>
+                            
+                            {% if product.summery_description %}
+                                {{ product.summery_description }}
+                                {% else %}
+                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده 
+                            {% endif %}
+                                
+                        </p>
+                    </div>
+                    <div class="add_to_cart">
+                        {% if product.number_product_warehouse > 0 %}
+                            <button type="button" title="افزودن به سبد" onclick="add_shop_cart({{product.id}},1)">افزودن به سبد</button>
+                        {% else %}
+                            <button class="btn btn-warning" type="button">موجود شد باخبرم کن</button>
+                        {% endif %}
+                    </div>
+                    <div class="action_links">
+                        <ul>
+                            <li class="wishlist"><a href="wishlist.html"
+                                    title="افزودن به علاقه‌مندی‌ها"><i
+                                        class="ion-android-favorite-outline"></i> افزودن به
+                                    علاقه‌مندی‌ها</a></li>
+                            
+                            <li class="compare"><a title="افزودن به مقایسه" onclick="add_compare_product({{product.id}},{{product.get_main_group}})"><i
+                                class="ion-ios-settings-strong"></i></a></li>
+                            
+
+                        </ul>
+                    </div>
+                </div>
+            </figure>
+        </article>
+    </div>
+{% endif %}
+    
+
+
+{% if type == 3 %}
+    <article class="single_product">
+        <figure>
+
+            <div class="product_thumb">
+                <a class="primary_img" href="product-countdown.html"><img
+                        src="{{ media_url }}images/product/product1.jpg" alt=""></a>
+                <a class="secondary_img" href="product-countdown.html"><img
+                        src="{{ media_url }}images/product/product2.jpg" alt=""></a>
+                <div class="label_product">
+                    <span class="label_sale">فروش</span>
+                </div>
+                <div class="action_links">
+                    <ul>
+                        {% if user.is_authenticated %}
+                            {% if product.check_favorite_product %}
+                                <li class="wishlist">
+                                    <a title="افزودن به علاقه‌مندی‌ها"><i class="fa-solid fa-heart" id="favorite_{{product.id}}" style="color: #ff0000;"></i></a></li>
+                                {% else %}
+                                    <li class="wishlist" onclick="add_favorite_product({{product.id}})">
+                                        <a title="افزودن به علاقه‌مندی‌ها"><i class="fa-regular fa-heart" id="favorite_{{product.id}}"></i></a></li>
+                            {% endif %}
+                            
+                        {% else %}
+
+                            <li class="wishlist"> <a title="افزودن به علاقه‌مندی‌ها" onclick="alert_for_favorite()"><i class="fa-regular fa-heart"></i></a></li>
+                        {% endif %}
+                        <li class="compare"><a href="#" title="افزودن به مقایسه"><i
+                                    class="ion-ios-settings-strong"></i></a></li>
+                        <li class="quick_button"><a href="#" data-toggle="modal"
+                                data-target="#modal_box" title="مشاهده سریع"><i
+                                    class="ion-ios-search-strong"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="product_content">
+                <div class="product_content_inner">
+                    <h4 class="product_name"><a href="product-countdown.html">{{product.product_name}}</a></h4>
+                    <div class="price_box">
+                        
+                        {% if product.number_product_warehouse > 0 %}
+                            
+                            {% if product.product_price > product.price_by_discount %}
+                            <span class="old_price">{{ product.product_price | intcomma }} تومان</span>
+                            <span class="current_price">{{ product.price_by_discount | intcomma }} تومان</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="current_price">ناموجود</span>    
+                        {% endif %}
+                            
+                    </div>
+                    <div class="countdown_text">
+                        <p><span>عجله کنید!</span> اتمام پیشنهاد در: </p>
+                    </div>
+                    <div class="product_timing">
+                        <div data-countdown="2045/12/15"></div>
+                    </div>
+                </div>
+                <div class="add_to_cart">
+                    {% if product.number_product_warehouse > 0 %}
+                        <button type="button" title="افزودن به سبد" onclick="add_shop_cart({{product.id}},1)">افزودن به سبد</button>
+                    {% else %}
+                        <button class="btn btn-warning" type="button">موجود شد باخبرم کن</button>
+                    {% endif %}
+                </div>
+
+            </div>
+        </figure>
+    </article>
+{% endif %}
+    

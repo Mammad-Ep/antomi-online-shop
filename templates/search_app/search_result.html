@@ -1,0 +1,166 @@
+
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| جستجو
+{% endblock title %}
+
+
+{% block content %}
+
+        <!--breadcrumbs area start-->
+        <div class="breadcrumbs_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb_content">
+                            <ul>
+                                <li><a href="{% url 'main:index' %}">خانه</a></li>
+                                
+                                {% if group.group_parent %}
+                                    
+                                    <li>{{ group.group_parent }}</li>
+                                    <li>{{ group }}</li>
+                                {% else %}
+                                    <li>{{ group }}</li>    
+                                {% endif %}
+                                    
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--breadcrumbs area end-->
+    
+        <!--shop  area start-->
+        <div class="shop_area shop_reverse">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <!--sidebar widget start-->
+                        <aside class="sidebar_widget">
+
+                            <form action="">
+                                <div>
+                                    <!--product-categories start-->
+                                    {% render_partial 'products:product_category_productsList' slug=group.slug %}
+                                    <!--product-categories end-->
+    
+                                    <div class="widget_list widget_categories">
+                                        <h3>فیلتر با ویژگی</h3>
+    
+                                        <!--brand-filter start-->
+                                        {% render_partial 'products:brand_filter_productsList' group.slug %}
+                                        <!--brand-filter end-->
+                                        
+                                        <!--feature-filter start-->
+                                        {% render_partial 'products:feature_filter_productsList' group.slug %}
+                                        <!--feature-filter end-->
+    
+    
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary mb-4">فیلتر ویژگی</button>
+                                        <a href="{% url 'products:productslist' group.slug %}" id="filter-state" class="btn btn-danger mb-4 mx-2">انصراف</a>
+                                    </div>
+                                </form>
+                                
+                                {% include 'products_app/partials/price_filter_partial.html' %}
+                            </div>                            
+
+                        </aside>
+                        <!--sidebar widget end-->
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+    
+                        <!--shop banner area start-->
+
+                        <div class="shop_banner_area mb-30">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="shop_banner_thumb">
+                                        <img src="{{ media_url }}images/bg/banner16.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--shop banner area end-->
+
+                        <!--shop toolbar start-->
+                        
+                        <div class="shop_toolbar_wrapper">
+                            <div class="shop_toolbar_btn">
+                                <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip"
+                                    title="4"></button>
+                                <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip"
+                                    title="List"></button>
+                            </div>
+                            <div class="niceselect_container">
+
+                                
+                                    <label>ترتیب:</label>
+                                    <select class="select_option" name="select_sort" id="select_sort" onchange="select_sort()">
+                                        
+                                        {% if not select_sort or select_sort == 'best-selling' %}
+                                            <option selected value="best-selling">پرفروش ترین</option>
+                                            <option value="upward-price">قیمت صعودی</option>
+                                            <option value="downward-price">قیمت نزولی</option>
+                                            <option value="highest-score">امتیاز متوسط</option>
+                                            
+                                            {% elif select_sort == 'upward-price' %}
+                                            <option value="best-selling">پرفروش ترین</option>
+                                            <option selected value="upward-price">قیمت صعودی</option>
+                                            <option value="downward-price">قیمت نزولی</option>
+                                            <option value="highest-score">امتیاز متوسط</option>
+                                            
+                                            {% elif select_sort == 'downward-price' %}
+                                            <option value="best-selling">پرفروش ترین</option>
+                                            <option value="upward-price">قیمت صعودی</option>
+                                            <option selected value="downward-price">قیمت نزولی</option>
+                                            <option value="highest-score">امتیاز متوسط</option>
+                                            
+                                            {% elif select_sort == 'highest-score' %}
+                                            <option value="best-selling">پرفروش ترین</option>
+                                            <option value="upward-price">قیمت صعودی</option>
+                                            <option value="downward-price">قیمت نزولی</option>
+                                            <option selected value="highest-score">امتیاز متوسط</option>
+                                        {% endif %}
+                                            
+                                    </select>
+                                
+                            </div>
+                            <div class="page_amount">
+                                <p>{{products | length}} محصول</p>
+                            </div>
+                        </div>
+
+                        <!--shop toolbar end-->
+    
+                        <!--shop wrapper start-->
+                        
+                        {% if products %}
+                            <div class="row no-gutters shop_wrapper">
+                                {% for product in products %}
+                                    {% include 'products_app/partials/product_box.html' with type=2 label='' %}
+                                {% endfor %}
+                            </div>
+                            
+                            {% else %}
+                            <h3 class="text-danger m-auto my-4 text-center">محصولی یافت نشد</h3>
+                        {% endif %}
+                            
+
+
+                        <!--shop toolbar end-->
+                        <!--shop wrapper end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--shop  area end-->
+{% endblock content %}

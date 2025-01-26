@@ -1,0 +1,122 @@
+
+{% load humanizelib %}
+
+
+{% if shop_cart.count > 0 %}
+    <div class="shopping_cart_area">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="cart_page table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product_remove">حذف</th>
+                                        <th class="product_thumb">تصویر</th>
+                                        <th class="product_name">محصول</th>
+                                        <th class="product-price">قیمت</th>
+                                        <th class="product_quantity">تعداد</th>
+                                        <th class="product_total">جمع</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for item in shop_cart %}
+                                        <tr>
+                                            <td class="product_remove"><a onclick="remove_shop_cart({{item.product.id}})"><i class="fa fa-trash-o"></i></a></td>
+                                            <td class="product_thumb"><a href="{{item.product.get_absolute_url}}"><img src="{{ media_url }}{{item.product.image_name}}" alt=""></a></td>
+                                            <td class="product_name"><a href="{{item.product.get_absolute_url}}">{{item.product.product_name}}</a></td>
+                                            <td class="product-price">{{item.price_by_discount | intcomma}} <small>تومان</small></td>
+                                            {% comment %} <td class="product_quantity"><label>تعداد</label> <input min="1" max="{{item.product.number_product_warehouse}}" id="qty-cart{{item.product.id}}" value="{{item.qty}}" type="number" onchange="update_shop_cart({{item.product.id}})"></td> {% endcomment %}
+                                            <td class="">
+                                                <div class="add-shopcart">
+                                                    <div class="number">
+                                                        <span id="plus" onclick="plus_product_cart({{item.product.id}},{{item.product.number_product_warehouse}})"></span>
+                                                        <input type="number" id="qty_cart{{item.product.id}}" data-zeros="true" value="{{item.qty}}" min="1" max="{{ item.product.number_product_warehouse }}" readonly="">
+                                                        <span id="minus" onclick="minus_product_cart({{item.product.id}})"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="product_total">{{item.total_price | intcomma}} <small>تومان</small></td>
+                                        </tr>
+                                    {% endfor %}
+                                        
+
+                                </tbody>
+                            </table>
+                        </div>
+                        {% comment %} <div class="cart_submit">
+                            <button type="submit">به روز رسانی سبد</button>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <!--coupon code area start-->
+            <div class="coupon_area">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        
+                        <form action="{% url 'orders:applay_coupon_cart' %}" method="post">
+                            {% csrf_token %}
+                            <div class="coupon_code left">
+                                <h3>کد تخفیف</h3>
+                                <div class="coupon_inner">
+                                    <p>کد تخفیف خود را در صورت وجود وارد نمایید</p>
+                                    {% comment %} <input placeholder="کد تخفیف" type="text"> {% endcomment %}
+                                    {{ coupon_form.coupon }}
+                                    <button type="submit">اعمال کد تخفیف</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code right">
+                            <h3>مجموع سبد</h3>
+                            <div class="coupon_inner">
+                                <div class="cart_subtotal">
+                                    <p>جمع جزء</p>
+                                    <p class="cart_amount">{{final_price | intcomma}} تومان</p>
+                                </div>
+                                
+                                {% if discount > 0 %}
+                                    <div class="cart_subtotal">
+                                        <p>تخفیف</p>
+                                        <p class="cart_amount">% {{discount}}</p>
+                                    </div>
+                                {% endif %}
+                                    
+                                <div class="cart_subtotal">
+                                    <p>حمل و نقل</p>
+                                    <p class="cart_amount">{{delivery | intcomma}} تومان</p>
+                                </div>
+                                <div class="cart_subtotal">
+                                    <p>مالیات ارزش افزوده</p>
+                                    <p class="cart_amount">{{tax | intcomma}} تومان</p>
+                                </div>
+                                <a href="#">محاسبه هزینه</a>
+
+                                <div class="cart_subtotal has-border">
+                                    <p>جمع</p>
+                                    <p class="cart_amount">{{order_final_price | intcomma}} تومان</p>
+                                </div>
+                                {% comment %} <div class="checkout_btn">
+                                    <a href="{% url 'orders:create_order' %}">تایید و مرحله بعد</a>
+                                </div> {% endcomment %}
+
+                                <div class="checkout_btn">
+                                    <a href="{% url 'orders:create_order' %}">تایید و مرحله بعد</a>
+                                </div>   
+
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--coupon code area end-->
+    </div>
+    {% else %}
+    <h3 class="text-danger m-auto my-4 text-center">سبد خرید خالی می باشد</h3>
+{% endif %}
+    

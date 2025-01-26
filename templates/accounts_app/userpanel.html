@@ -1,0 +1,78 @@
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+
+{% block title %}
+| پنل کاربری 
+{% endblock title %}
+    
+
+{% block content %}
+    
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li>حساب کاربری</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!-- my account start  -->
+    <div class="account_page_bg">
+        <div class="container">
+            <section class="main_content_area">
+                <div class="account_dashboard">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3 col-lg-3">
+                            <!-- Nav tabs -->
+                            <div class="dashboard_tab_button">
+                                <ul role="tablist" class="nav flex-column dashboard-list">
+                                    <li><a href="#dashboard" data-toggle="tab" class="nav-link active">داشبورد</a></li>
+                                    <li> <a href="#orders" data-toggle="tab" class="nav-link">سفارشات</a></li>
+                                    <li><a href="#payments" data-toggle="tab" class="nav-link">پرداخت ها</a></li>
+                                    <li><a href="{% url 'favorites:wishlist' %}" class="nav-link">علاقه مندی ها</a></li>
+                                    <li><a href="#account-details" data-toggle="tab" class="nav-link">جزئیات حساب</a></li>
+                                    <li><a href="{% url 'accounts:logout' %}" class="nav-link">خروج</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-9 col-lg-9">
+                            <!-- Tab panes -->
+                            <div class="tab-content dashboard_content">
+                                <div class="tab-pane fade show active" id="dashboard">
+                                    <!-- user info -->
+                                    {% render_partial 'accounts:user_info' %}
+                                </div>
+                                <div class="tab-pane fade" id="orders">
+                                    <!-- last orders user -->
+                                    {% render_partial 'accounts:last_orders_user' %}
+                                </div>
+                                <div class="tab-pane fade" id="payments">
+                                    <!-- last payments user -->
+                                    {% render_partial 'accounts:last_payments_user' %}
+                                </div>
+
+                                <div class="tab-pane fade" id="account-details">
+                                    <!-- last accounts details -->
+                                    {% render_partial 'accounts:account_details' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- my account end   -->
+
+{% endblock content %}
+    

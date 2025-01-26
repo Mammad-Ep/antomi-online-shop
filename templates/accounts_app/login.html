@@ -1,0 +1,71 @@
+
+{% extends 'main_templates.html' %}
+
+
+{% block title %}
+| ورود 
+{% endblock title %}
+    
+
+{% block content %}
+    
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li>ورود</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!-- customer login start -->
+    <div class="login_page_bg">
+        <div class="container">
+            <div class="customer_login">
+                <div class="row d-flex justify-content-center">
+                    <!--login area start-->
+                    <div class="col-lg-6 col-md-6">
+                        <div class="account_form login">
+                            <h2>ورود</h2>
+                            <form method="post" action="">
+                                {% csrf_token %}
+                                <p>
+                                    <label for="mobile-login">شماره موبایل<span>*</span></label>
+                                    {{ form.mobile_number }}
+                                </p>
+                                <p>
+                                    <label for="password-login">رمز عبور <span>*</span></label>
+									{{ form.password }}
+                                </p>
+                                <p>
+                                    {{ form_captcha.captcha_field }}
+                                </p>
+                                <div class="login_submit">
+                                    <a href="{% url 'accounts:password_remember' %}">رمز عبور خود را فراموش کرده اید؟</a>
+
+                                    <button type="submit">ورود</button>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    <!--login area start-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- customer login end -->
+
+{% endblock content %}
+    

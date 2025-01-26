@@ -1,0 +1,331 @@
+
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| محصولات
+{% endblock title %}
+
+
+{% block content %}
+
+        <!--breadcrumbs area start-->
+        <div class="breadcrumbs_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb_content">
+                            <ul>
+                                <li><a href="{% url 'main:index' %}">خانه</a></li>
+                                
+                                {% if group.group_parent %}
+                                    
+                                    <li>{{ group.group_parent }}</li>
+                                    <li>{{ group }}</li>
+                                {% else %}
+                                    <li>{{ group }}</li>    
+                                {% endif %}
+                                    
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--breadcrumbs area end-->
+    
+        <!--shop  area start-->
+        <div class="shop_area shop_reverse">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <!--sidebar widget start-->
+                        <aside class="sidebar_widget">
+
+                            <form action="" method="get">
+                                <div>
+                                    <!--product-categories start-->
+                                    {% render_partial 'products:product_category_productsList' slug=group.slug %}
+                                    <!--product-categories end-->
+    
+                                    <div class="widget_list widget_categories">
+                                        <h3>فیلتر با ویژگی</h3>
+    
+                                        <!--brand-filter start-->
+                                        {% render_partial 'products:brand_filter_productsList' group.slug %}
+                                        <!--brand-filter end-->
+                                        
+                                        <!--feature-filter start-->
+                                        {% render_partial 'products:feature_filter_productsList' group.slug %}
+                                        <!--feature-filter end-->
+    
+    
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary mb-4">فیلتر ویژگی</button>
+                                        <a href="{% url 'products:productslist' group.slug %}" id="filter-state" class="btn btn-danger mb-4 mx-2">انصراف</a>
+                                    </div>
+                                </form>
+                                
+                                {% include 'products_app/partials/price_filter_partial.html' %}
+                            </div>
+                            
+                            {% comment %} <div class="widget_list">
+                                <h3>مقایسه محصولات</h3>
+                                <div class="recent_product_container">
+                                    <article class="recent_product_list">
+                                        <figure>
+                                            <div class="product_thumb">
+                                                <a class="primary_img" href="product-details.html"><img
+                                                        src="{{ media_url }}images/product/product9.jpg" alt=""></a>
+                                                <a class="secondary_img" href="product-details.html"><img
+                                                        src="{{ media_url }}images/product/product10.jpg" alt=""></a>
+                                            </div>
+                                            <div class="product_content">
+                                                <h4><a href="product-details.html">لورم ایپسوم متن ساختگی با تولید</a></h4>
+                                                <div class="product_rating">
+                                                    <ul>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price_box">
+                                                    <span class="old_price">70,000 تومان</span>
+                                                    <span class="current_price">65,000 تومان</span>
+                                                </div>
+                                            </div>
+                                        </figure>
+                                    </article>
+                                    <article class="recent_product_list">
+                                        <figure>
+                                            <div class="product_thumb">
+                                                <a class="primary_img" href="product-details.html"><img
+                                                        src="{{ media_url }}images/product/product11.jpg" alt=""></a>
+                                                <a class="secondary_img" href="product-details.html"><img
+                                                        src="{{ media_url }}images/product/product12.jpg" alt=""></a>
+                                            </div>
+                                            <div class="product_content">
+                                                <h4><a href="product-details.html">لورم ایپسوم متن ساختگی با تولید سادگی</a>
+                                                </h4>
+                                                <div class="product_rating">
+                                                    <ul>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price_box">
+                                                    <span class="old_price">70,000 تومان</span>
+                                                    <span class="current_price">65,000 تومان</span>
+                                                </div>
+                                            </div>
+                                        </figure>
+                                    </article>
+                                    <article class="recent_product_list">
+                                        <figure>
+                                            <div class="product_thumb">
+                                                <a class="primary_img" href="product-details.html"><img
+                                                        src="{{ media_url }}images/product/product14.jpg" alt=""></a>
+                                                <a class="secondary_img" href="product-details.html"><img
+                                                        src="{{ media_url }}images/product/product13.jpg" alt=""></a>
+                                            </div>
+                                            <div class="product_content">
+                                                <h4><a href="product-details.html">لورم ایپسوم متن ساختگی با تولید</a></h4>
+                                                <div class="product_rating">
+                                                    <ul>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price_box">
+                                                    <span class="old_price">70,000 تومان</span>
+                                                    <span class="current_price">65,000 تومان</span>
+                                                </div>
+                                            </div>
+                                        </figure>
+                                    </article>
+                                </div>
+                            </div> {% endcomment %}
+                            
+                            {% comment %} <div class="widget_list tags_widget">
+                                <h3>برچسب های محصولات</h3>
+                                <div class="tag_cloud">
+                                    <a href="#">بلوز</a>
+                                    <a href="#">لباس ها</a>
+                                    <a href="#">مد و زیبایی</a>
+                                    <a href="#">کیف دستی</a>
+                                    <a href="#">لپ تاپ</a>
+                                </div>
+                            </div> {% endcomment %}
+
+                        </aside>
+                        <!--sidebar widget end-->
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+    
+                        <!--shop banner area start-->
+
+                        <div class="shop_banner_area mb-30">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="shop_banner_thumb">
+                                        <img src="{{ media_url }}images/bg/banner16.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--shop banner area end-->
+
+                        <!--shop toolbar start-->
+                        
+                        <div class="shop_toolbar_wrapper">
+                            <div class="shop_toolbar_btn">
+                                <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip"
+                                    title="4"></button>
+                                <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip"
+                                    title="List"></button>
+                            </div>
+                            <div class="niceselect_container">
+                                {% comment %} <form action="#">
+                                    <label>ترتیب:</label>
+                                    <select class="select_option" name="orderby" id="short">
+                                        <option selected value="1">امتیاز متوسط</option>
+                                        <option value="2">محبوبیت</option>
+                                        <option value="3">تاریخ ارسال</option>
+                                        <option value="4">قیمت صعودی</option>
+                                        <option value="5">قیمت نزولی</option>
+                                        <option value="6">نام محصول</option>
+                                    </select>
+                                </form> {% endcomment %}
+
+                                
+                                    <label>ترتیب:</label>
+                                    <select class="select_option" name="select_sort" id="select_sort" onchange="select_sort()">
+                                        
+                                        {% if not select_sort or select_sort == 'best-selling' %}
+                                            <option selected value="best-selling">پرفروش ترین</option>
+                                            <option value="upward-price">قیمت صعودی</option>
+                                            <option value="downward-price">قیمت نزولی</option>
+                                            <option value="highest-score">امتیاز متوسط</option>
+                                            
+                                            {% elif select_sort == 'upward-price' %}
+                                            <option value="best-selling">پرفروش ترین</option>
+                                            <option selected value="upward-price">قیمت صعودی</option>
+                                            <option value="downward-price">قیمت نزولی</option>
+                                            <option value="highest-score">امتیاز متوسط</option>
+                                            
+                                            {% elif select_sort == 'downward-price' %}
+                                            <option value="best-selling">پرفروش ترین</option>
+                                            <option value="upward-price">قیمت صعودی</option>
+                                            <option selected value="downward-price">قیمت نزولی</option>
+                                            <option value="highest-score">امتیاز متوسط</option>
+                                            
+                                            {% elif select_sort == 'highest-score' %}
+                                            <option value="best-selling">پرفروش ترین</option>
+                                            <option value="upward-price">قیمت صعودی</option>
+                                            <option value="downward-price">قیمت نزولی</option>
+                                            <option selected value="highest-score">امتیاز متوسط</option>
+                                        {% endif %}
+                                            
+                                    </select>
+                                
+                            </div>
+                            <div class="page_amount">
+                                <p>نمایش 1-8 از {{products | length}} محصول</p>
+                            </div>
+                        </div>
+
+                        <!--shop toolbar end-->
+    
+                        <!--shop wrapper start-->
+                        <div class="row no-gutters shop_wrapper">
+                            {% for product in page_obj %}
+                                {% include 'products_app/partials/product_box.html' with type=2 label='' %}
+                            {% endfor %}
+                        </div>
+    
+                        {% comment %} <div class="shop_toolbar t_bottom">
+                            <div class="pagination">
+                                <ul>
+                                    <li class="current">1</li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li class="next"><a href="#">بعدی</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                </ul>
+                            </div>
+                        </div> {% endcomment %}
+
+                        <!--Pagination-->
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center shop_toolbar t_bottom">
+                            <!--Previous-->
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="True">قبلی</a>
+                                </li>
+                            {% endif %}
+                            <!-- Previous-->
+                            <!--Hellip-->
+                            {% if page_obj.number|add:'-4' > 1 %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a></li>
+                            {% endif %}
+                        <!--Pager-->
+                        {% for i in page_obj.paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link">
+                                        {{ i }}
+                                        <span class="sr-only">(current)</span>
+                                    </span>
+                                </li>
+                            {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        <!--end Pager__>
+                        <!Hellip-->
+                        {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.number|add:'5' }}">&hellip;</a></li>
+                        {% endif %}
+                        <!--end Hellip -->
+                        <!--Next-->
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="True">بعدی</a>
+                            </li>
+                        {% endif %}
+                        <!--end Next-->
+                        </ul>
+                    </nav>
+
+                    <!-- end of pagination -->
+
+                        <!--shop toolbar end-->
+                        <!--shop wrapper end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--shop  area end-->
+{% endblock content %}

@@ -1,0 +1,45 @@
+
+<h3>جزئیات حساب </h3>
+<div class="login">
+    <div class="login_form_container">
+        <div class="account_login_form">
+            <form action="{% url 'accounts:account_details' %}" method="post">
+                {% csrf_token %}
+                <div class="input-radio">
+                    <span class="custom-radio">
+                        {{form.gender.0}}</span>
+                    <span class="custom-radio">
+                        {{form.gender.1}}</span>
+                </div>
+                <br>
+                <label for="first-name">نام</label>
+                {{form.first_name}}
+                
+                <label for="last-name">نام خانوادگی</label>
+                {{form.last_name}}
+                
+                <label for="email-account">ایمیل</label>
+                {{form.email_account}}
+                
+                <label for="mobile_number"> موبایل </label>
+                {{form.mobile_number}}
+                
+                <label for="phone_number"> تلفن ثابت </label>
+                {{form.phone_number}}
+                
+                <label for="postal_code"> کدپستی</label>
+                {{form.postal_code}}
+                
+                <label for="address-account"> آدرس</label>
+                {{form.address}}
+                
+
+                <br>
+
+                <div class="save_button primary_btn default_button">
+                    <button type="submit">اعمال تغییرات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

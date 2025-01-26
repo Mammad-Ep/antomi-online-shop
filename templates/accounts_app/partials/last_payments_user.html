@@ -1,0 +1,50 @@
+{% load jalali_tags %}
+{% load humanizelib %}
+
+<h3>دریافت ها</h3>
+
+
+{% if payments %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>سفارش</th>
+                    <th>تاریخ</th>
+                    <th>وضعیت پرداخت</th>
+                    <th>کد پیگیری</th>
+                    <th>مبلغ کل فاکتور</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for payment in payments %}
+                    <tr>
+                        <td> {{payment.order.order_code}} </td>
+                        <td>{{payment.register_date | to_jalali:'%H:%M:%S - %y/%m/%d' }}</td>
+                        
+                        {% if payment.is_finaly %}
+                            <td class="text-success">پرداخت شده</td>
+                            {% else %}
+                            <td class="text-danger">پرداخت نشده</td>
+                        {% endif %}
+                            
+                        
+                        {% if payment.ref_id %}
+                            <td> {{payment.ref_id}} </td>
+                            {% else %}
+                            <td> --- </td>
+                        {% endif %}
+                            
+                        
+                        <td> {{payment.invoice_amount | intcomma}} <small>تومان</small></td>
+                    </tr>
+                {% endfor %}
+                    
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <h3 class="text-danger m-auto my-4 text-center">پرداختی وجود ندارد</h3>
+{% endif %}
+    

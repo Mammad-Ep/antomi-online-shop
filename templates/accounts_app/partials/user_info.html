@@ -1,0 +1,57 @@
+
+
+<h3>مشخصات </h3>
+<div>
+
+    <p>نام و نام خانوادگی : 
+        <strong>
+            
+            {% if name and family != none %}
+                {{name}} {{family}}
+                {% else %}
+                ----
+            {% endif %}
+                
+        </strong>
+    </p>
+    <p>شماره موبایل : <span>{{mobile}}</span></p>
+    <p>ایمیل : 
+        <strong>
+            
+            {% if email != none %}
+                {{email}}
+                {% else %}
+                ---
+            {% endif %}
+                
+        </strong>
+    </p>
+
+    <div>
+        <h4>آدرس</h4>
+        <p>آدرس منزل/محل کار : 
+            <strong>
+                
+                {% if address != none %}
+                    {{address}}
+                    {% else %}
+                    ---
+                {% endif %}
+                    
+            </strong>
+        </p>
+        <p>کدپستی منزل/محل کار : 
+            <strong>
+                
+                {% if address != none %}
+                    {{postal_code}}
+                    {% else %}
+                    ---
+                {% endif %}
+                    
+            </strong>
+        </p>
+    </div>
+    
+    <p></p>
+</div>

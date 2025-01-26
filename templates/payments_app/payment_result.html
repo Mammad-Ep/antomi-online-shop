@@ -1,0 +1,262 @@
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| نتیجه پرداخت
+{% endblock title %}
+
+
+{% block content %}
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li>نتیجه پرداخت</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!--shipping----------------------------------->
+    
+    {% if payment_type == 'at_home' %}
+        <section class="page-shipping mb-5">
+            <div class="page-row">
+                <div class="col-12 text-center">
+                    <div class="complate-page-container">
+                        <div class="success-checkout">
+                            <div class="container">
+                                <div class="icon-success">
+                                    <span class="fa fa-check"></span>
+                                </div>
+                                <div class="order-success">
+                                    سفارش 
+                                    <a href="#" class="order-code">{{order.order_code}}</a>
+                                    با موفقیت در سیستم ثبت شد.
+                                    <span class="order-ready-post"> سفارش شما (پرداخت درب محل) با موفقیت ثبت شد و در زمان تعیین شده برای شما ارسال خواهد شد.
+                                    <br>
+                                    از اینکه دیجی استور را برای خرید انتخاب کردید از شما سپاسگزاریم.
+                                    </span>
+                                </div>
+                            </div>   
+                        </div>
+
+                        <div class="checkout-order-info">
+                            <div class="order-info">
+                                <div class="order-code">
+                                کد سفارش :
+                                    <span>{{order.order_code}}</span>
+                                </div>
+                                <div class="checkout-process-order-info">
+                                    سفارش شما با موفقیت در سیستم ثبت شد و هم اکنون 
+                                    <a href="#" class="processing">در حال پردازش</a>
+                                    است.جزئیات این سفارش را می توانید
+                                        با کلیک بر روی دکمه 
+                                    <a href="#" class="link-border">پیگیری سفارش</a>
+                                        مشاهده نمایید.
+                                </div>
+                                <div class="parent-btn btn-following-order">
+                                    <button class="btn btn-info">
+                                        پیگیری سفارش
+                                        <i class="fa fa-shopping-bag sign-in"></i>
+                                    </button>
+                                </div>
+                                <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">نام تحویل گیرنده: {{customer.user.name}} {{customer.user.family}}</th>
+                                    <th scope="col">شماره تماس : {{customer.user.mobile_number}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td>تعداد مرسوله : 1</td>
+                                    <td>مبلغ کل : {{order.invoice_amount | intcomma}}</td>
+                                    </tr>
+                                    <tr>
+                                    <td>وضعیت پرداخت : {{order.payment_type}}</td>
+                                    <td>وضعیت سفارش : {{order.order_state}}</td>
+                                    </tr>
+                                    <tr>
+                                    <td>آدرس : {{customer.address}}</td>
+                                    <td></td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-actions text-right mb-2">
+                        <a href="{% url 'main:index' %}" class="checkout-actions-back"><i class="fa fa-angle-right" aria-hidden="true"></i>بازگشت به خانه</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if payment_type == 'online' %}
+        <section class="page-shipping mb-5">
+            <div class="page-row">
+                <div class="col-12 text-center">
+                    <div class="complate-page-container">
+                        <div class="success-checkout">
+                            <div class="container">
+                                <div class="icon-success">
+                                    <span class="fa fa-check"></span>
+                                </div>
+                                <div class="order-success">
+                                    سفارش با کد پیگیری 
+                                    <a class="order-code">{{ref_id}}</a>
+                                    با موفقیت پرداخت و در سیستم ثبت شد.
+                                    <span class="order-ready-post">پرداخت با موفقیت انجام شد. سفارش شما با موفقیت ثبت شد و در زمان تعیین شده برای شما ارسال خواهد شد.
+                                    <br>
+                                    از اینکه دیجی استور را برای خرید انتخاب کردید از شما سپاسگزاریم.
+                                    </span>
+                                </div>
+                            </div>   
+                        </div>
+
+                        <div class="checkout-order-info">
+                            <div class="order-info">
+                                <div class="order-code">
+                                کد سفارش :
+                                    <span>{{order.order_code}}</span>
+                                </div>
+                                <div class="checkout-process-order-info">
+                                    سفارش شما با موفقیت در سیستم ثبت شد و هم اکنون 
+                                    <a href="#" class="processing">در حال پردازش</a>
+                                    است.جزئیات این سفارش را می توانید
+                                        با کلیک بر روی دکمه 
+                                    <a href="#" class="link-border">پیگیری سفارش</a>
+                                        مشاهده نمایید.
+                                </div>
+                                <div class="parent-btn btn-following-order">
+                                    <button class="btn btn-info">
+                                        پیگیری سفارش
+                                        <i class="fa fa-shopping-bag sign-in"></i>
+                                    </button>
+                                </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">نام تحویل گیرنده: {{customer.user.name}} {{customer.user.family}}</th>
+                                        <th scope="col">شماره تماس : {{customer.user.mobile_number}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>تعداد مرسوله : 1</td>
+                                        <td>مبلغ کل : {{order.invoice_amount | intcomma}} تومان</td>
+                                        </tr>
+                                        <tr>
+                                        <td>وضعیت پرداخت : {{order.payment_type}}</td>
+                                        <td>وضعیت سفارش : {{order.order_state}}</td>
+                                        </tr>
+                                        <tr>
+                                        <td>آدرس : {{customer.address}}</td>
+                                        <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-actions text-right mb-2">
+                        <a href="{% url 'main:index' %}" class="checkout-actions-back"><i class="fa fa-angle-right" aria-hidden="true"></i>بازگشت به خانه</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if payment_type == 'failed' %}
+
+        <section class="page-shipping mb-5">
+            <div class="page-row">
+                <div class="col-12 text-center">
+                    <div class="complate-page-container">
+                        <div class="success-checkout">
+                            <div class="container">
+                                <div class="icon-success warning">
+                                    <span class="fa fa-close"></span>
+                                </div>
+                                <span class="text-danger">پیغام : {{message}}</span>
+                                <div class="order-success">
+                                    سفارش 
+                                    <a class="order-code">{{order.order_code}}</a>
+                                    در سیستم ثبت شد اما پرداخت ناموفق بود
+                                    
+                                    <span class="text-warning">برای جلوگیری از لغو سیستمی سفارش،تا 24 ساعت آینده پرداخت را انجام دهید.</span>
+
+                                    <span class="order-ready-post">چنانچه طی این فرایند مبلغی از حساب شما کسر شده است،طی 72 ساعت آینده به حساب شما باز خواهد گشت.</span>
+                                </div>
+                            </div>   
+                        </div>
+
+                        <div class="checkout-order-info">
+                            <div class="order-info">
+                                <div class="order-code">
+                                   کد سفارش :
+                                    <span>{{order.order_code}}</span>
+                                </div>
+                                <div class="checkout-process-order-info">
+                                    سفارش شما با موفقیت در سیستم ثبت شد و هم اکنون 
+                                    <a href="#" class="processing">در انتظار پرداخت</a>
+                                     است.جزئیات این سفارش را می توانید
+                                         با کلیک بر روی دکمه 
+                                    <a href="#" class="link-border">پیگیری سفارش</a>
+                                         مشاهده نمایید.
+                                </div>
+                                <div class="parent-btn btn-following-order">
+                                    <button class="btn btn-info">
+                                         پیگیری سفارش
+                                        <i class="fa fa-shopping-bag sign-in"></i>
+                                    </button>
+                                </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">نام تحویل گیرنده: {{customer.user.name}} {{customer.user.family}}</th>
+                                        <th scope="col">شماره تماس : {{customer.user.mobile_number}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>تعداد مرسوله : 1</td>
+                                        <td>مبلغ کل : {{order.invoice_amount | intcomma}} تومان</td>
+                                        </tr>
+                                        <tr>
+                                        <td>وضعیت پرداخت : {{order.payment_type}} - (ناموفق)</td>
+                                        <td>وضعیت سفارش : ثبت نشده</td>
+                                        </tr>
+                                        <tr>
+                                        <td>آدرس : {{customer.address}}</td>
+                                        <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-actions text-right mb-2">
+                        <a href="{% url 'main:index' %}" class="checkout-actions-back"><i class="fa fa-angle-right" aria-hidden="true"></i>بازگشت به سبد خرید</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {% endif %}
+        
+    <!--shipping----------------------------------->
+
+{% endblock content %}

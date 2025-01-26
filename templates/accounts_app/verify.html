@@ -1,0 +1,68 @@
+
+{% extends 'main_templates.html' %}
+
+
+{% block title %}
+| کد تایید  
+{% endblock title %}
+    
+
+{% block content %}
+    
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li>احراز هویت</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!-- customer login start -->
+    <div class="login_page_bg">
+        <div class="container">
+            <div class="customer_login">
+                <div class="row d-flex justify-content-center">
+
+                    <!--register area start-->
+                    <div class="col-lg-6 col-md-6">
+                        <div class="account_form register">
+                            <h2>ثبت نام</h2>
+                            <form method="post" action="">
+                                {% csrf_token %}
+                                <p>
+                                    <label for="varify-code"> کد تایید<span>*</span></label>
+									{{ form.active_code }}
+                                </p>
+                                <p>
+                                    <div class="receive-verify-code">
+                                        <p id="countdown-verify-end"><span class="day">0</span><span class="hour">0</span><span>: 2</span><span>58</span>
+                                        <i class="fa fa-clock-o"></i>
+                                        </p>
+                                    </div>
+                                </p>
+                                <div class="login_submit">
+                                    <span id="countdown-timer"></span>
+                                    <button id="submit-verify" type="submit">تایید کد</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--register area end-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- customer login end -->
+
+{% endblock content %}
+    

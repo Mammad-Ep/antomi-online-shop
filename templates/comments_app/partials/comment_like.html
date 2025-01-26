@@ -1,0 +1,49 @@
+  
+    {% if comment.check_like_comment %}
+        <div class="like-comment">
+            <p class="text-black-50">آیا مفید بود؟</p>
+            
+            {% if comment_like.like_type_id == 1 %}
+                <div class="mx-3">
+                    <i class="fa-solid fa-thumbs-up fa-lg" id="like_{{comment.id}}" onclick="alert('امتیاز شما قبلا برای این دیدگاه ثبت شده است')"></i>
+                    <span>{{like_number}}</span>
+                </div>
+                <div class="mx-3">
+                    <i class="fa-regular fa-thumbs-down fa-lg" id="dislike_{{comment.id}}" onclick="alert('امتیاز شما قبلا برای این دیدگاه ثبت شده است')"></i>
+                    <span>{{dislike_number}}</span>
+                </div>
+            {% endif %}
+
+            {% if comment_like.like_type_id == 2 %}
+                <div class="mx-3">
+                    <i class="fa-regular fa-thumbs-up fa-lg" id="like_{{comment.id}}" onclick="alert('امتیاز شما قبلا برای این دیدگاه ثبت شده است')"></i>
+                    <span>{{like_number}}</span>
+                </div>
+                <div class="mx-3">
+                    <i class="fa-solid fa-thumbs-down fa-lg" id="dislike_{{comment.id}}" onclick="alert('امتیاز شما قبلا برای این دیدگاه ثبت شده است')"></i>
+                    <span>{{dislike_number}}</span>
+                </div>
+            {% endif %}
+                
+            {% comment %} <div class="mx-3">
+                <i class="fa-regular fa-thumbs-down fa-lg" onclick="alert('امتیاز شما قبلا برای این دیدگاه ثبت شده است')"></i>
+                <span>0</span>
+            </div> {% endcomment %}
+        </div> 
+        {% else %}
+            <div class="like-comment">
+                <p class="text-black-50">آیا مفید بود؟</p>
+                <div class="mx-3">
+                    <i class="fa-regular fa-thumbs-up fa-lg" id="like_{{comment.id}}" onclick="add_like_comment({{comment.id}},'like')"></i>
+                    <span>{{like_number}}</span>
+                </div>
+                <div class="mx-3">
+                    <i class="fa-regular fa-thumbs-down fa-lg" id="dislike_{{comment.id}}" onclick="add_like_comment({{comment.id}},'dislike')"></i>
+                    <span>{{dislike_number}}</span>
+                </div>
+    
+            </div> 
+    {% endif %}
+        
+
+     

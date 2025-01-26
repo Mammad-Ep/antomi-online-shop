@@ -1,0 +1,26 @@
+
+
+{% if groups %}
+    <div class="widget_list widget_categories">
+        <h3>دسته های محصولات</h3>
+        <ul>
+            {% comment %} <li><a href="#">دوربین عکاسی و فیلمبرداری</a></li>
+            <li class="widget_sub_categories"><a href="javascript:void(0)">کامپیوتر و شبکه</a>
+                <ul class="widget_dropdown_categories" style="display:none;">
+                    <li><a href="#">کامپیوتر</a></li>
+                    <li><a href="#">ابزار شبکه</a></li>
+                </ul>
+            </li> {% endcomment %}
+
+            
+                
+            {% for group in groups %}
+                <li class='d-flex justify-content-between align-content-center'><a href="{% url 'products:productslist' group.slug %}"> {{group.group_name}} </a>
+                     <span class="text-black-50">{{group.products_groups.all | length}}</span></li>
+            {% endfor %}
+
+                
+        </ul>
+    </div>
+{% endif %}
+    

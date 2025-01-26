@@ -1,0 +1,322 @@
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| محصول
+{% endblock title %}
+
+
+{% block content %}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="{% url 'main:index' %}">خانه</a></li>
+
+                        {% for group in product.product_group.all %}
+                        <li>{{ group.group_name }}</li>
+                        {% endfor %}
+                        <li>{{ product.product_name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+
+<div class="product_page_bg">
+    <div class="container">
+        <div class="product_details_wrapper mb-55">
+            <!--product details start-->
+            <div class="product_details">
+                <div class="row">
+                    <div class="col-lg-5 col-md-6">
+                        <div class="product-details-tab">
+                            <div id="img-1" class="zoomWrapper single-zoom">
+                                <a href="#">
+                                    <img id="zoom1" src="{{ media_url }}{{ product.image_name }}"
+                                        data-zoom-image="{{ media_url }}{{ product.image_name }}" alt="big-1">
+                                </a>
+                            </div>
+                            <div class="single-zoom-thumb">
+                                <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
+                                    <li>
+                                        <a href="#" class="elevatezoom-gallery active" data-update=""
+                                            data-image="{{ media_url }}{{ product.image_name }}"
+                                            data-zoom-image="{{ media_url }}{{ product.image_name }}">
+                                            <img src="{{ media_url }}{{ product.image_name }}" alt="zo-th-1">
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                        <a href="#" class="elevatezoom-gallery active" data-update=""
+                                            data-image="{{ media_url }}{{ product.image_name }}"
+                                            data-zoom-image="{{ media_url }}{{ product.image_name }}">
+                                            <img src="{{ media_url }}{{ product.image_name }}" alt="zo-th-1">
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                        <a href="#" class="elevatezoom-gallery active" data-update=""
+                                            data-image="{{ media_url }}{{ product.image_name }}"
+                                            data-zoom-image="{{ media_url }}{{ product.image_name }}">
+                                            <img src="{{ media_url }}{{ product.image_name }}" alt="zo-th-1">
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                        <a href="#" class="elevatezoom-gallery active" data-update=""
+                                            data-image="{{ media_url }}{{ product.image_name }}"
+                                            data-zoom-image="{{ media_url }}{{ product.image_name }}">
+                                            <img src="{{ media_url }}{{ product.image_name }}" alt="zo-th-1">
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-6">
+                        <div class="product_d_right">
+                            
+
+                                <h3><a href="#">{{ product.product_name }}</a></h3>
+                                
+                                <div id="scorings_partal">
+                                    {% render_partial 'scorings:scorings_partial' slug=product.slug %}
+                                </div>
+
+                                <div class="price_box">
+
+                                    {% if product.number_product_warehouse > 0 %}
+                                        {% if product.product_price > product.price_by_discount %}
+                                            <span class="old_price">{{ product.product_price | intcomma }} تومان</span>
+                                            <span class="current_price">{{ product.price_by_discount | intcomma }} تومان</span>
+                                        {% else %}
+                                            <span class="current_price">{{ product.product_price | intcomma }} تومان</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="current_price"> ناموجود </span>
+                                    {% endif %}
+
+                                </div>
+                                <div class="product_desc">
+
+                                    {% if product.summery_description %}
+                                    <p>{{ product.summery_description }}</p>
+                                    {% else %}
+                                    <p>
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
+                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
+                                        جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
+                                        ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می
+                                        توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به
+                                        پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته
+                                        اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    </p>
+                                    {% endif %}
+
+                                </div>
+                                {% comment %} <div class="product_variant color">
+                                    <h3>گزینه های در دسترس</h3>
+                                    <label>رنگ</label>
+                                    <ul>
+                                        <li class="color1"><a href="#"></a></li>
+                                        <li class="color2"><a href="#"></a></li>
+                                        <li class="color3"><a href="#"></a></li>
+                                        <li class="color4"><a href="#"></a></li>
+                                    </ul>
+                                </div> {% endcomment %}
+
+                                {% comment %} <label>تعداد</label> {% endcomment %}
+                                {% if product.number_product_warehouse > 0 %}
+                                    <div class="d-flex align-items-center my-3">
+                                        <label for="qty_{{ product.id }}" class="mr-3">تعداد</label> 
+                                        <div class="add-shopcart">
+                                            <div class="number">
+                                                <span id="plus" onclick="plus_number_product({{product.id}},{{product.number_product_warehouse}})"></span>
+                                                <input type="number" id="qty_{{ product.id }}" data-zeros="true" value="1" min="1" max="{{ product.number_product_warehouse }}" readonly="">
+                                                <span id="minus" onclick="minus_number_product({{product.id}})"></span>
+                                            </div>
+                                        </div>
+                                        <div class="product_variant quantity my-0">
+                                            {% comment %} <input min="1" max="{{product.number_product_warehouse}}" value="1" type="number" id="qty-single-product{{product.id}}"> {% endcomment %}
+                                            <button class="button" type="submit" onclick="add_shop_cart({{product.id}},0)">افزودن به سبد</button>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                    
+                                
+                                <div class=" product_d_action">
+                                    <ul>
+
+                                        {% if user.is_authenticated %}
+                                            {% if product.check_favorite_product %}
+                                                    
+                                                    <a><i class="fa-solid fa-heart fa-lg" id="favorite_{{product.id}}" style="color: #ff0000;"></i></a> <span> افزودن به علاقه مندی </span></li>
+                                                {% else %}
+                                                    <li class="wishlist" onclick="add_favorite_product({{product.id}})">
+                                                        <a title="افزودن به علاقه‌مندی‌ها"><i class="fa-regular fa-heart fa-lg" id="favorite_{{product.id}}"></i> افزودن به علاقه مندی </a></li>
+                                            {% endif %}
+                                            
+                                        {% else %}
+
+                                            <li class="wishlist"> <a title="افزودن به علاقه‌مندی‌ها" onclick="alert_for_favorite()"><i class="fa-regular fa-heart fa-lg"></i> افزودن به علاقه مندی </a></li>
+                                        {% endif %}
+                                       
+                                        </li>
+                                        <li >
+                                            <a onclick="add_compare_product({{product.id}},{{product.get_main_group}})" title="افزودن به علاقه‌مندی‌ها">+ مقایسه</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product_meta">
+                                    <span>دسته: <a href="#">{{ general_group }}</a></span>
+                                </div>
+
+                            
+                            <div class="priduct_social">
+                                <ul>
+                                    <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i>
+                                            لایک</a></li>
+                                    <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i>
+                                            توییت</a></li>
+                                    <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i>
+                                            ذخیره</a></li>
+                                    <li><a class="google-plus" href="#" title="google +"><i
+                                                class="fa fa-google-plus"></i> اشتراک گذاری</a></li>
+                                    <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i>
+                                            لینکدین</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--product details end-->
+
+            <!--product info start-->
+            <div class="product_d_info">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product_d_inner">
+                            <div class="product_info_button">
+                                <ul class="nav" role="tablist">
+                                    <li>
+                                        <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info"
+                                            aria-selected="false">توضیحات</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet"
+                                            aria-selected="false">مشخصات فنی</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
+                                            aria-selected="false">نقد و برررسی (1)</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="info" role="tabpanel">
+                                    <div class="product_info_content">
+                                        
+                                        {% if product.description %}
+                                            
+                                            {% autoescape off %}
+                                                <p>{{product.description}}</p>
+                                            {% endautoescape %}
+                                        {% else %}
+                                        
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+
+لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                            </p>
+                                            
+                                        {% endif %}
+                                            
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="sheet" role="tabpanel">
+                                    <div class="product_d_table">
+                                        <form action="#">
+                                            <table>
+                                                <tbody>
+                                                    <div>
+                                                        
+                                                        {% for type in feature_types %}
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <span>* </span><h4 style='color:red;display:inline-block;font-size:1.3rem'>{{type}}</h4>
+                                                                </td>
+                                                            </tr>
+                                                            {% for item in product.product_features.all %}
+                                                                
+                                                                {% if item.feature_type == type %}
+                                                                    <tr>
+                                                                        <td class="first_child">{{item.feature}}</td>
+                                                                        <td>{{item.filter_value}}</td>
+                                                                    </tr>
+                                                                {% endif %}
+                                                                    
+                                                            {% endfor %}
+                                                                
+                                                        {% endfor %}
+                                                            
+                                                    </div>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+                                    {% comment %} <div class="product_info_content">
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                                            طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
+                                            ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده
+                                            شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را
+                                            برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
+                                            ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
+                                            راهکارها و</p>
+                                    </div> {% endcomment %}
+                                </div>
+
+                                <!--product comments start-->
+                                {% include 'products_app/partials/comments.html' %}
+                                <!--product comments end-->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--product info end-->
+        </div>
+
+        <!--product area start-->
+        <section class="product_area related_products">
+
+            {% render_partial 'products:related_products' slug=product.slug %}
+
+        </section>
+        <!--product area end-->
+
+        <!--product area start-->
+        <section class="product_area upsell_products">
+            {% render_partial 'products:related_best_selling_products' slug=product.slug %}
+        </section>
+        <!--product area end-->
+    </div>
+</div>
+
+
+{% endblock content %}

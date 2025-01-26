@@ -1,0 +1,61 @@
+
+
+{% if messages %}
+    <div classs="container p-5">
+        <div class="row no-gutters fixed-bottom">
+            
+            {% for message in messages %}
+                <div class="col-lg-4 col-md-12">
+                    <div class="alert alert-{{ message.tags }} fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="True">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">پیغام</h4>
+                        <p> {{ message }} </p>
+                    </div>
+                </div>
+            {% endfor %}
+                
+        </div>
+    </div>
+{% endif %}
+    
+
+{% if form.errors.items %}
+    <div classs="container p-5">
+        <div class="row no-gutters fixed-bottom">
+            
+            {% for error,message in form.errors.items %}
+                <div class="col-lg-4 col-md-12 ml-auto">
+                    <div class="alert alert-danger fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="True">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">پیغام</h4>
+                        <p> {{ message }} </p>
+                    </div>
+                </div>
+            {% endfor %}
+                
+        </div>
+    </div>
+{% endif %}
+
+
+
+
+<div class="container" id="message-box-script">
+    <div class="row no-gutters fixed-bottom">
+        
+        <div class="col-lg-4 col-md-12 mr-auto">
+            <div class="alert alert-info fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="True">&times;</span>
+                </button>
+                <h4 class="alert-heading">پیغام</h4>
+                <p> پیغام </p>
+            </div>
+        </div>
+            
+    </div>
+</div>

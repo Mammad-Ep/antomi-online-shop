@@ -1,0 +1,157 @@
+{% load humanizelib %}
+
+{% if products %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="compaer-page--inner">
+                    
+                        <!-- Compare Table -->
+                        <div class="compare-table table-responsive">
+                            <table class="table mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="first-column">محصول</td>
+                                        
+                                        {% for product in products %}
+                                            <td class="product-image-title">
+                                                <a href="{{product.get_absolute_url}}" class="image"><img src="{{ media_url }}{{product.image_name}}" alt="{{product.product_name}}"></a>
+                                                {% comment %} <a href="#" class="category">لوازم الکترونیکی</a> {% endcomment %}
+                                                <a href="{{product.get_absolute_url}}" class="title">{{product.product_name}}</a>
+                                            </td>
+                                        {% endfor %}
+                                            
+                                    </tr>
+                                    <tr>
+                                        <td class="first-column">توضیحات</td>
+                                        
+                                        {% for product in products %}
+                                            <td class="pro-desc">
+                                               
+                                               {% if product.summery_description %}
+                                                    <p>{{ product.summery_description }}</p>
+                                                {% else %}
+                                                    <p class='text-center'>---</p>
+                                               {% endif %}
+                                                
+                                            </td>
+                                        {% endfor %}
+                                            
+                                    </tr>
+                                    <tr>
+                                        <td class="first-column">قیمت</td>
+                                        
+                                        {% for product in products %}
+                                            <td class="pro-price">{{product.price_by_discount | intcomma }} تومان</td>
+                                        {% endfor %}
+                                            
+
+                                    </tr>
+
+                                    {% comment %} {% for feature in features %}
+                                        <tr>                                           
+                                            <td class="first-column">{{feature.feature_name}}</td>
+                                        
+                                            {% for product in products %}
+                                                
+                                                {% for item in product.product_features.all %}
+                                                    
+                                                    {% if item.feature == feature %}
+                                                        
+                                                        {% if item.filter_value %}
+                                                            <td class="pro-color">{{item.filter_value.value_name}}</td>
+                                                            {% else %}
+                                                            <td class="pro-color">----</td>
+                                                        {% endif %}
+                                                            
+                                                    {% endif %}
+                                                        
+                                                {% endfor %}
+                                                    
+                                                    
+                                            {% endfor %}                                                             
+                                        </tr>
+                                    {% endfor %} {% endcomment %}
+                                    {% for feature in features %}
+                                        <tr>                                           
+                                            <td class="first-column">{{feature.feature_name}}</td>
+                                        
+                                            {% for product in products %}
+                                                
+                                                {% for item in product.product_features.all %}        
+                                                    {% if item.feature == feature %}                                                                                                                
+                                                        <td class="pro-color">{{item.filter_value.value_name}}</td>                                                                                                                    
+                                                    {% endif %}
+                                                         
+                                                {% endfor %}
+                                                    
+                                                    
+                                            {% endfor %}                                                             
+                                        </tr>
+                                    {% endfor %}
+
+                                    <tr>
+
+                                        <td class="first-column">موجودی</td>
+                                        
+                                        {% for product in products %}
+                                            
+                                            {% if product.number_product_warehouse > 0 %}
+                                                <td class="pro-stock text-success">موجود در انبار</td>
+                                                {% else %}
+                                                <td class="pro-stock text-danger">ناموجود</td>
+                                            {% endif %}
+                                                
+                                        {% endfor %}
+                                            
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="first-column">افزودن به سبد</td>
+                                        
+                                        {% for product in products %}
+                                            {% if product.number_product_warehouse > 0 %}
+                                                <td class="pro-addtocart"><a class="add-to-cart" tabindex="0" onclick="add_shop_cart({{product.id}},1)"><span>افزودن به سبد</span></a></td>
+                                            {% else %}
+                                            <td>
+                                                <button class="btn btn-warning" type="button">موجود شد باخبرم کن</button>
+                                            </td>
+                                                
+                                            {% endif %}
+                                            
+  
+                                        {% endfor %}
+                                            
+                                    </tr>
+                                    <tr>
+                                        <td class="first-column">حذف</td>
+                                        
+                                        {% for product in products %}
+                                            <td class="pro-remove"><button onclick="remove_compare_product({{product.id}},{{product.get_main_group}})"><i class="fa fa-trash-o"></i></button></td>
+                                        {% endfor %}
+                                            
+
+                                    </tr>
+                                    <tr>
+                                        <td class="first-column">امتیاز</td>
+                                        
+                                        {% for product in products %}
+                                            <td class="pro-ratting">
+                                               <span>{{product.avg_score_product}}</span> <i class="fa-solid fa-star fa-xl" style="color: #ffc600;"></i>
+                                            </td>
+                                        {% endfor %}
+                                            
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <h3 class="text-danger m-auto my-4 text-center">محصولی برای مقایسه وجود ندارد</h3>
+{% endif %}
+    

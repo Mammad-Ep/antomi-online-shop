@@ -1,0 +1,27 @@
+
+<div class="row">
+    <div class="col-12">
+        <div class="product_header">
+            <div class="section_title s_title_style3">
+                <h2> {{ title }} </h2>
+
+            </div>
+            
+            {% if not flag %}
+                <div class="product_tab_btn">
+                    <ul class="nav" role="tablist">
+                        {% for group,products in products_groups.items %}
+                            <li>
+                                <a class="" data-toggle="tab" href="#{{group.slug}}-{{id}}" role="tab"
+                                    aria-controls="Fashion" aria-selected="true">
+                                    {{ group.group_name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+                
+        </div>
+    </div>
+</div>

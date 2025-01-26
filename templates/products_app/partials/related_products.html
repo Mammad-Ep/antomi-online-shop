@@ -1,0 +1,14 @@
+
+
+{% include 'products_app/partials/product_header.html' with title='محصولات مرتبط' id='' flag='true' %}
+
+           
+<div class="product_carousel product_style product_column5 owl-carousel">
+    
+    {% for product in products %}
+        {% include 'products_app/partials/product_box.html' with type=1 label='' %}
+    {% endfor %}
+        
+</div>
+
+    

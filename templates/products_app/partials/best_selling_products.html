@@ -1,0 +1,19 @@
+
+
+
+{% include 'products_app/partials/product_header.html' with title='محصولات پرفروش' id='selling' %}
+
+<div class="tab-content">
+        {% for group,products in products_groups.items %}
+            <div class="tab-pane fade show" id="{{group.slug}}-selling" role="tabpanel">
+                <div class="product_carousel product_style product_column5 owl-carousel">
+                    
+                    {% for product in products %}
+                        {% include 'products_app/partials/product_box.html' with type=1 label='پرفروش' %}
+                    {% endfor %}
+                        
+                </div>
+            </div>    
+        {% endfor %}
+</div>
+    

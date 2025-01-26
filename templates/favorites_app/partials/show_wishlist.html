@@ -1,0 +1,60 @@
+
+{% load humanizelib %}
+
+{% if favorites %}
+    <div class="row">
+        <div class="col-12">
+            <div class="table_desc wishlist">
+                <div class="cart_page table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="product_remove">حذف</th>
+                                <th class="product_thumb">تصویر</th>
+                                <th class="product_name">محصول</th>
+                                <th class="product-price">قیمت</th>
+                                <th class="product_quantity">وضعیت انبار</th>
+                                <th class="product_total">افزودن به سبد</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for favorite in favorites %}
+                                <tr>
+                                    <td class="product_remove"><a onclick="remove_favorite_product({{favorite.product.id}})">×</a></td>
+                                    <td class="product_thumb"><a href="{{favorite.product.get_absolute_url}}"><img src="{{ media_url }}{{favorite.product.image_name}}" alt="{{favorite.product.product_name}}"></a></td>
+                                    <td class="product_name"><a href="{{favorite.product.get_absolute_url}}">{{favorite.product.product_name}}</a></td>
+                                    <td class="product-price">{{favorite.product.price_by_discount | intcomma}} <small>تومان</small></td>
+                                    
+                                    {% if favorite.product.number_product_warehouse > 0 %}
+                                        <td class="product_quantity">موجود در انبار</td>
+                                        {% else %}
+                                        <td class="product_quantity text-danger">ناموجود</td>
+                                    {% endif %}
+                                        
+                                    
+                                    {% if favorite.product.number_product_warehouse > 0 %}
+                                        <td class="product_total"><a onclick="add_shop_cart({{favorite.product.id}},1)">افزودن به سبد</a></td>
+                                    {% else %}
+                                        <td class="product_quantity text-danger">ناموجود</td> 
+                                    {% endif %}
+                                        
+                                </tr>
+                            {% endfor %}
+                                
+
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'accounts:userpanel' %}" class="btn btn-secondary my-3">بازگشت به پنل کاربری</a>
+{% else %}
+    <h3 class="text-danger m-auto my-4 text-center">محصول مورد علاقه وجود ندارد</h3>
+{% endif %}
+    
+
+
+    

@@ -1,0 +1,47 @@
+
+<div class="product_rating_top">
+    <ul>                                                                                
+        {% if user.is_authenticated %}
+            {% if product.user_score_product > 0 %}
+                
+            {% with ''|center:"5" as range %}
+            
+            {% for i in range %}
+
+                {% if forloop.counter <= product.user_score_product %}
+                    <i class="fa-solid fa-star fa-xl" style="color: #FFD43B;"></i>
+                {% else %}
+                    <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;"></i>
+                {% endif %}
+                    
+            {% endfor %}
+                
+                
+            {% endwith %}
+
+            {% else %}
+
+            <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;" onclick=add_star(1,{{product.id}})></i>
+            <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;" onclick=add_star(2,{{product.id}})></i>
+            <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;" onclick=add_star(3,{{product.id}})></i>
+            <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;" onclick=add_star(4,{{product.id}})></i>
+            <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;" onclick=add_star(5,{{product.id}})></i>
+                
+            {% endif %}
+            {% else %}
+            <a href="{% url 'accounts:login' %}?next={{product.get_absolute_url}}">
+                <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;"></i>
+                <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;"></i>
+                <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;"></i>
+                <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;"></i>
+                <i class="fa-regular fa-star fa-xl" style="color: #FFD43B;"></i>
+            </a>
+        {% endif %}
+            
+            
+
+        
+
+    </ul>
+    <div class="review">میانگین امتیاز <span>( {{product.avg_score_product}} )</span></div>
+</div>

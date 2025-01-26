@@ -1,0 +1,108 @@
+
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| جستجو
+{% endblock title %}
+
+
+{% block content %}
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li>جستجو محصول</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!--shop  area start-->
+    <div class="shop_area shop_fullwidth">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!--shop banner area start-->
+                    <div class="shop_banner_area mb-30">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="shop_banner_thumb">
+                                    <img src="m/2}}images/bg/banner16.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--shop banner area end-->
+                    <!--shop toolbar start-->
+                    <div class="shop_toolbar_wrapper">
+                        <div class="shop_toolbar_btn">
+                            <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
+                            <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
+                        </div>
+
+						{% comment %} <div class="niceselect_container">
+							<form action="#">
+								<label>ترتیب:</label>
+								<select class="select_option" name="orderby" id="short">
+                                    <option selected value="1">امتیاز متوسط</option>
+                                    <option value="2">محبوبیت</option>
+                                    <option value="3">تاریخ ارسال</option>
+                                    <option value="4">قیمت صعودی</option>
+                                    <option value="5">قیمت نزولی</option>
+                                    <option value="6">نام محصول</option>
+                                </select>
+                            </form>
+                        </div> {% endcomment %}
+
+                        <div class="page_amount">
+                            <p>نمایش {{products | length}} محصول</p>
+                        </div>
+                    </div>
+                    <!--shop toolbar end-->
+
+                    <!--shop wrapper start-->
+                    
+                    {% if products %}
+                        <div class="row no-gutters shop_wrapper">                            
+                            {% for product in products %}
+                                {% include 'products_app/partials/product_box.html' with type=2 label='' %}
+                            {% endfor %}
+                        </div>
+
+                        {% else %}
+                        <h3 class="text-danger m-auto my-4 text-center">محصولی یافت نشد</h3>
+                    {% endif %}
+                        
+
+                    {% comment %} <div class="shop_toolbar t_bottom">
+                        <div class="pagination">
+                            <ul>
+                                <li class="current">1</li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li class="next"><a href="#">بعدی</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                            </ul>
+                        </div>
+                    </div> {% endcomment %}
+
+                    <!--shop toolbar end-->
+                    <!--shop wrapper end-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--shop  area end-->
+{% endblock content %}

@@ -1,0 +1,37 @@
+
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| مقایسه محصولات
+{% endblock title %}
+
+
+{% block content %}
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li>مقایسه</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!-- main-content-wrap start -->
+    <div class="main-content-wrap compaer-page" id="compare-products-box">
+        {% render_partial 'products:compare_produts_list' %}
+    </div>
+    <!-- main-content-wrap end -->
+
+{% endblock content %}

@@ -1,0 +1,28 @@
+
+
+<div id="form-child-section">
+    <form action="{% url 'comments:create_comment_child' %}" method="post" id="form-child">
+        {% csrf_token %}
+        <div class='row align-items-center'>
+            <div class="form-group offset-1 col-5">
+                {{ form.comment_text_child }}      
+            </div>
+            <div class="form-group">
+                {{ form.product_id }} 
+                {{ form.comment_id }} 
+            </div>
+            <div class="form-group offset-1 col-5">
+                <button type="submit" class="btn btn-primary">ارسال</button>
+                {% comment %} <button type="button" class="btn btn-secondary btn-cancel-commnet" onclick='cancel_commnet({{comment_id}})'>انصراف</button> {% endcomment %}
+                
+                <button type="button" data-toggle="collapse" class="btn btn-secondary btn-cancel-commnet" onclick='cancel_commnet({{comment_id}})'
+                data-target="#collapse-content{{comment_id}}" aria-controls="collapse-content{{comment_id}}" aria-expanded="true">انصراف</button>
+                
+            </div>
+        </div>
+    </form>   
+</div>
+
+
+
+

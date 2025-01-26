@@ -1,0 +1,40 @@
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| سبد خرید
+{% endblock title %}
+
+
+{% block content %}
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="{% url 'main:index' %}">خانه</a></li>
+                            <li>سبد خرید</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!--shopping cart area start -->
+    <div class="cart_page_bg">
+        <div class="container">
+            <div id="shop_cart_list">
+                {% render_partial 'orders:show_shop_cart' %}
+            </div>
+        </div>
+    </div>
+    <!--shopping cart area end -->
+
+{% endblock content %}

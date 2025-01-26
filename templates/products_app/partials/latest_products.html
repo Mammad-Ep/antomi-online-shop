@@ -1,0 +1,22 @@
+
+
+{% include 'products_app/partials/product_header.html' with title='محصولات جدید' id="last" %}
+
+<div class="tab-content">
+        {% for group,products in products_groups.items %}
+            <div class="tab-pane fade show" id="{{group.slug}}-last" role="tabpanel">
+                <div class="product_carousel product_style product_column5 owl-carousel">
+                    
+                    {% for product in products %}
+                        
+                        {% if product.number_product_warehouse > 0 %}
+                            {% include 'products_app/partials/product_box.html' with type=1 label='جدید' %}
+                        {% endif %}
+                            
+                    {% endfor %}
+                        
+                </div>
+            </div>    
+        {% endfor %}
+</div>
+    

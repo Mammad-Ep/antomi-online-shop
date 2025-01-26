@@ -1,0 +1,23 @@
+
+<div class="column2 col-lg-6 ">
+    <div class="search_container">
+        <form action="{% url 'search:search' %}" method="get">
+            <div class="hover_category">
+                <select class="select_option" name="group-search" id="categori2">
+                    <option selected value="all-categori">همه دسته ها</option>
+                    
+                    {% for group in general_groups %}
+                        <option value="{{group.group_name}}">{{group.group_name}}</option>
+                    {% endfor %}
+                        
+
+                </select>
+            </div>
+            <div class="search_box">
+                <input placeholder="جستجوی محصول ..." type="text" name="q" id="q">
+                <button type="submit">جستجو</button>
+            </div>
+        </form>
+    </div>
+
+</div>

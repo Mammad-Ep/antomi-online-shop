@@ -1,0 +1,20 @@
+<div class="categories_product_area mb-55">
+    <div class="container">
+        <div class="categories_product_inner">
+            
+            {% for group in products_groups %}
+                <div class="single_categories_product">
+                    <div class="categories_product_content">
+                        <h4><a href="{% url 'products:productslist' slug=group.slug %}">{{group.group_name}}</a></h4>
+                        <p> {{group.products_groups.all | length}} </p>
+                    </div>
+                    <div class="categories_product_thumb">
+                        <a href="{% url 'products:productslist' slug=group.slug %}"><img src="{{ media_url }}{{group.image_name}}" alt="group.group_name"></a>
+                    </div>
+                </div>                
+            {% endfor %}
+                
+
+        </div>
+    </div>
+</div>

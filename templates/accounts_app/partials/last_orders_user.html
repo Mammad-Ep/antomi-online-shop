@@ -1,0 +1,36 @@
+{% load jalali_tags %}
+{% load humanizelib %}
+
+<h3>سفارشات</h3>
+
+{% if orders %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>شماره سفارش</th>
+                    <th>تاریخ</th>
+                    <th>وضعیت</th>
+                    <th>مبلغ کل فاکتور</th>
+                    <th>روش پرداخت</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for order in orders %}
+                    <tr>
+                        <td> {{order.order_code}} </td>
+                        <td> {{order.register_date | to_jalali:'%H:%M - %Y/%m/%d' }} </td>
+                        <td><span class="success"> {{order.order_state}} </span></td>
+                        <td> {{order.invoice_amount | intcomma}} <small>تومان</small> </td>
+                        <td> {{order.payment_type}} </td>
+                    </tr>
+                {% endfor %}
+                    
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <h3 class="text-danger m-auto my-4 text-center">سفارشی وجود ندارد</h3>
+{% endif %}
+    

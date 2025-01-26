@@ -1,0 +1,184 @@
+{% extends 'main_templates.html' %}
+
+{% load render_partial %}
+{% load humanizelib %}
+
+{% block title %}
+| نهایی کردن سبد خرید
+{% endblock title %}
+
+
+{% block content %}
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="index.html">خانه</a></li>
+                            <li>پرداخت</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!--Checkout page section-->
+    <div class="checkout_page_bg">
+        <div class="container">
+            <div class="Checkout_section">
+                <div class="row">
+                    <div class="col-12">
+                    </div>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="checkout_form">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="checkout_form_left">
+                                        <h3>جزئیات پرداخت</h3>
+                                        <div class="row">
+    
+                                            <div class="col-lg-6 mb-20">
+                                                <label>نام <span>*</span></label>
+                                                {{form.fname}}
+                                            </div>
+                                            <div class="col-lg-6 mb-20">
+                                                <label>نام خانوادگی <span>*</span></label>
+                                                {{form.lname}}
+                                            </div>
+    
+                                            <div class="col-12 mb-20 order-notes">
+                                                <label>آدرس کامل <span>*</span></label>
+                                                
+                                                {{form.address}}
+                                            </div>
+    
+                                            <div class="col-12 mb-20">
+                                                <label>کدپستی <span>*</span></label>
+                                                {{form.postal_code}}
+                                            </div>
+    
+                                            <div class="col-12 mb-20">
+                                                <label>شماره موبایل <span>*</span></label>
+                                                {{form.mobile_number}}
+                                                
+                                            </div>
+    
+                                            <div class="col-lg-6 mb-20">
+                                                <label>تلفن ثابت<span>*</span></label>
+                                                {{form.phone_number}}
+    
+                                            </div>
+                                            <div class="col-lg-6 mb-20">
+                                                <label>آدرس ایمیل <span>*</span></label>
+                                                {{form.email}}
+    
+                                            </div>
+    
+                                            <div class="col-12">
+                                                <div class="order-notes">
+                                                    <label for="order_note">توضیحات سفارش</label>
+                                                    {{form.description}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="checkout_form_right">
+                                    
+                                        <h3>سفارش شما</h3>
+                                        <div class="order_table table-responsive">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>محصول</th>
+                                                        <th>جمع</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                    {% for item in shop_cart %}
+                                                        <tr>
+                                                            <td><span class="d-inline-block">{{item.product.product_name }}</span> <strong class="text-danger">× {{item.qty}}</strong></td>
+                                                            <td>{{item.total_price | intcomma}} تومان</td>
+                                                        </tr> 
+                                                    {% endfor %}
+                                                        
+    
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>جمع سبد</th>
+                                                        <td>{{final_price | intcomma}} تومان</td>
+                                                    </tr>
+                                                    
+                                                    {% if delivery > 0 %}
+                                                        <tr>
+                                                            <th>حمل و نقل</th>
+                                                            <td><strong>{{delivery | intcomma}} تومان</strong></td>
+                                                        </tr>
+                                                    {% endif %}
+    
+                                                    {% if discount > 0 %}
+                                                        <tr>
+                                                            <th>تخفیف فاکتور</th>
+                                                            <td><strong>% {{discount}}</strong></td>
+                                                        </tr>
+                                                    {% endif %}
+                                                        
+                                                    <tr class="order_total">
+                                                        <th>مجموع سفارش</th>
+                                                        <td><strong>{{order_final_price | intcomma}} تومان</strong></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <div class="payment_method" id="accordion">
+                                            <div class="panel-default">
+                                                <label data-toggle="collapse" data-target="#method" aria-controls="method">
+                                                    {% comment %} <input name="check_method" type="radio" checked> پرداخت نقدی {% endcomment %}
+                                                    {{form.payment_type.1}}
+                                                </label>
+    
+                                                <div id="method" class="collapse show one" data-parent="#accordion">
+                                                    <div class="card-body1">
+                                                        <p>پرداخت به صورت آنلاین و از طریق درگاه پرداخت</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-default">
+                                                <label data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">
+                                                    {% comment %} <input name="check_method" type="radio"> پرداخت آنلاین <img src="{{ media_url }}images/icon/papyel.png" alt=""> {% endcomment %}
+                                                    {{form.payment_type.0}}
+                                                </label>
+    
+                                                <div id="collapsedefult" class="collapse one" data-parent="#accordion">
+                                                    <div class="card-body1"> 
+                                                        <p>پرداخت درب منزل و بعد از تحویل دادن سفارش به مشتری انجام می گیرد.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order_button">
+                                                <button type="submit">پرداخت</button>
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--Checkout page section end-->
+{% endblock content %}
