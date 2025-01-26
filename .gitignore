@@ -8,8 +8,6 @@ venv/
 
 # Django
 *.sqlite3
-/media/
-/static/
 
 # Environment variables
 .env
